@@ -1,0 +1,10 @@
+<title>Posts</title>
+<a href="{{ "/" }}">Return to Homepage</a>
+<hr>
+<a href="{{ "/posts/new" }}">New post</a>
+
+<h1>Posts</h1>
+{% for post in posts %}
+<a href="/posts/{{ post.id }}"><b>Name:</b> {{ post.name }} | Author: {{ post.author }}</a>
+<br/>
+{% endfor %}
