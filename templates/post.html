@@ -9,3 +9,22 @@
 <p>
 {{ post.content }}
 </p>
+
+<a href="/posts/{{ post.post_id }}/edit">Edit post</a><br/><br/>
+<form action="/posts/{{ post.post_id }}/delete" method="post">
+  <button type="submit">Delete post</button>
+</form>
+<br/>
+
+<form action="/comments/new" method="post">
+  <input type="text" name="message">
+  <input type="hidden" name="post_id" value="{{ post.post_id }}">
+  <button type="submit">Create comment</button>
+</form>
+<div id="comments" style="border: 1px solid black">
+{% for comment in post.comments() %}
+  {{ comment.message }}
+  <br/>
+  <br/>
+{% endfor %}
+</div>

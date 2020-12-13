@@ -1,0 +1,15 @@
+<form action="/posts/{{ post.post_id }}/edit" method="post">
+  <label>
+      Name: <input name="name" value="{{ post.name }}"/>
+  </label>
+    <br>
+  <label>
+      Author: <input name="author" value="{{ post.author }}"/>
+  </label>
+  <br>
+  <label>
+      Content: <input name="content" value="{{ post.content }}"/>
+  </label>
+  <br>
+  <button type="submit">Submit</button>
+</form>
