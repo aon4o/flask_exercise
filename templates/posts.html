@@ -1,10 +1,20 @@
-<title>Posts</title>
-<a href="{{ "/" }}">Return to Homepage</a>
-<hr>
-<a href="{{ "/posts/new" }}">New post</a>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Posts</title>
+    </head>
+    <body>
+        <a href="{{ "/" }}">Return to Homepage</a>
+        <hr>
+        <a href="{{ "/posts/new" }}">New post</a>
+        <a href={{ "/register" }}>Register</a>
+        <h1>Posts</h1>
+        {% for post in posts %}
+            <a href="/posts/{{ post.post_id }}"><b>Name:</b> {{ post.name }} | Author: {{ post.author }}</a>
+            <br/>
+        {% endfor %}
+    </body>
+</html>
 
-<h1>Posts</h1>
-{% for post in posts %}
-<a href="/posts/{{ post.post_id }}"><b>Name:</b> {{ post.name }} | Author: {{ post.author }}</a>
-<br/>
-{% endfor %}
+
+

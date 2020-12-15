@@ -1,13 +1,17 @@
-from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
+from flask_httpauth import HTTPBasicAuth
+
 from post import Post
 from comment import Comment
+from user import User
 
-app = Flask(__name__)
+app = Flask("Demo_Flask_app")
+
+auth = HTTPBasicAuth()
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('index.html')
 
 
@@ -47,6 +51,7 @@ def delete_post(post_id):
 
 
 @app.route('/posts/new', methods=['GET', 'POST'])
+@auth.login_required
 def new_post():
     if request.method == 'GET':
         return render_template('new_post.html')
@@ -65,3 +70,27 @@ def new_comment():
         Comment(*values).create()
         
         return redirect(url_for('show_post', post_id=post.post_id))
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('register.html')
+    elif request.method == 'POST':
+        values = (
+            None,
+            request.form['username'],
+            User.hash_password(request.form['password'])
+        )
+        User(*values).create()
+
+        return redirect('/')
+
+
+@auth.verify_password
+def verify_password(username, password):
+    user = User.find_by_username(username)
+    if user:
+        return user.verify_password(password)
+
+    return False
