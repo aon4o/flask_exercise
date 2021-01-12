@@ -31,7 +31,6 @@ def show_post(post_id):
 def edit_post(post_id):
     post = Post.find(post_id)
     if request.method == 'GET':
-        
         return render_template('edit_post.html', post=post)
     elif request.method == 'POST':
         post.name = request.form['name']
